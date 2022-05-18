@@ -1,11 +1,12 @@
-/*
-Theme Name: Mon theme
+/* 
+Theme Name: SiteVitrine
 */
 
+<<<<<<< HEAD
+.navbar-brand {
+    width: 10em !important;
+=======
 body {
     background-color: aqua;
-}
-
-#site-title {
-    color: green;
+>>>>>>> parent of e583da5 (commit du Mercredi)
 }

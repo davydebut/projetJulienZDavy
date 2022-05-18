@@ -1,1 +1,2 @@
-Ceci est une page d'erreur
+Ceci est ma page d'erreur
+<h3>Coucou</h3>
