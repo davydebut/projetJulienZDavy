@@ -9,11 +9,12 @@ if ( have_posts() ) :
         <div><?php the_content() ?></div>
         <span class="pills"><?php the_category() ?></span>
         <div class="row">
-            <div class="col">
+            <div class="col-6">
                 <img class="img-fluid" src="<?php the_field("image_gauche") ?>" >
             </div>
-            <div class="col">
+            <div class="col-5">
                 <p><?php the_field("text_droite") ?></p>
+                <button class="btn btn-primary">Testing button</button>
             </div>
         </div>
         

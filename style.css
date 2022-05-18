@@ -5,3 +5,7 @@ Theme Name: Mon theme
 body {
     background-color: aqua;
 }
+
+#site-title {
+    color: green;
+}
