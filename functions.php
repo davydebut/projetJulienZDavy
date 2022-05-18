@@ -1,4 +1,5 @@
 <?php
+//coucou
 <<<<<<< HEAD
 function montheme_setup()
 {
