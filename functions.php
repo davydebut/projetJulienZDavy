@@ -13,13 +13,12 @@ function montheme_supports()
 
 function montheme_register_assets()
 {
-    wp_register_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css');
-    wp_register_script('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js', ['popper', 'jquery'], false, true);
-    wp_register_script('popper', 'https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js', [], false, true);
-    wp_deregister_script('jquery');
-    wp_register_script('jquery', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', [], false, true);
-    wp_enqueue_style('bootstrap');
-    wp_enqueue_script('bootstrap');
+    wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css');
+    wp_enqueue_style('bootstrap-icon', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css');
+    wp_enqueue_style('animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+    wp_enqueue_style('style', get_stylesheet_uri());
+    wp_enqueue_script('script', get_template_directory_uri());
+    wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', [], false, true);
 }
 
 function montheme_title_separator()
@@ -95,10 +94,39 @@ function montheme_taxonomy()
     ]);
 }
 
+function montheme_post_type() {
+    // création d'un post type
+    register_post_type('bien', [
+        'labels' => [
+            'name' => 'Biens',
+            'singular_name' => 'Bien',
+            'all_items' => 'Tous les biens',
+            'add_new_item' => 'Ajouter un nouvel bien',
+            'edit_item' => 'Editer un bien',
+            'new_item' => 'Nouvel bien',
+            'view_item' => 'Voir l\'bien',
+            'search_items' => 'Rechercher un bien',
+            'not_found' => 'Aucun bien trouvé',
+            'not_found_in_trash' => 'Aucun bien dans la corbeille',
+            'menu_name' => 'Biens',
+        ],
+        'public' => true,
+        'has_archive' => true, 
+        'show_in_rest' => true,
+        'supports' => ['title', 'editor', 'thumbnail'],
+        'menu_icon' => 'dashicons-building',
+        'menu_position' => 3,
+    ]);
+}
+
 add_action('init', 'montheme_taxonomy');
+add_action('init', 'montheme_post_type');
 add_action('after_setup_theme', 'montheme_supports'); // -> ceci est un hook qui permet d'ajouter une fonction à l'action after_setup_theme
 add_action('wp_enqueue_scripts', 'montheme_register_assets');
 add_filter('document_title_separator', 'montheme_title_separator');
 // add_filter('document_title_parts', 'montheme_document_title_parts'); // -> les filtres sont commes des tuyaux qui permettent d'integré une valeur, dès que vous avez une question sur comment modifier telle ou telle fonctionnalité, n'hésitez a vous rendre sur le code source de la fontion utilisée pour voir si il y a des filtres ou des ations sur lequelle je peux les passées.
 add_filter('nav_menu_css_class', 'montheme_menu_class_li');
 add_filter('nav_menu_link_attributes', 'montheme_menu_class_a');
+
+require_once('options/agence.php');
+AgenceMenuPage::register();

@@ -4,17 +4,28 @@
 <?php // wp_list_categories(['taxonomy' => 'sport', 'title_li' => '']); 
 ?>
 <!-- affiche toutes les catégories de sport listing de taxonomie des différents sport utilisé la fonction wp_list_categories() permet de lister les catégories mais également les taxonomies  -->
+<h1>
+    <?php // var_dump(get_queried_object()) // renvoie un objet wp_term qui va contenir le term sport
+    echo esc_html(get_queried_object()->name); // renvoie le nom du sport 
+    ?>
+</h1>
+<p>
+    <?= esc_html(get_queried_object()->description); ?>
+</p>
 <?php $sports = get_terms(['taxonomy' => 'sport']); ?>
+<?php if(is_array($sports)) : ?>
 <ul class="nav nav-pills my-4">
     <?php foreach ($sports as $sport) : ?>
         <li class="nav-item">
             <a href="<?= get_term_link($sport) ?>" class="nav-link <?= is_tax('sport', $sport->term_id) ? 'active' : '' ?>">
                 <?= $sport->name ?>
-               <?php // var_dump($sport->name); ?>
+                <?php // var_dump($sport->name); 
+                ?>
             </a>
         </li>
     <?php endforeach; ?>
 </ul>
+<?php endif; ?>
 <!--  -->
 <!-- Quelle que chose d'essentiels à maitriser la boucle et qui va permettre de charger la liste de nos articles -->
 <?php if (have_posts()) : ?>
