@@ -1,3 +1,10 @@
 /*
 Theme Name: Mon Theme
 */
+
+
+/* Feuille de style intégrée #11 | http://localhost:8080/sitevitrine/ */
+
+.navbar-nav {
+    margin: auto !important;
+}
