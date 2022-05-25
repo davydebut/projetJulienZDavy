@@ -40,7 +40,7 @@
                 ?></p> -->
             <div class="col-sm-4">
                 <?php get_template_part('parts/card', 'post'); ?>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
             </div>
             <?php montheme_pagination(); ?>
             <?php // echo next_posts_link(); 

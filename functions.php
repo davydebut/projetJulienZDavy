@@ -119,6 +119,27 @@ function montheme_post_type() {
     ]);
 }
 
+function montheme_bien_column($columns)
+{
+    /* var_dump($columns);
+    die(); */
+    return [
+        'cb' => $columns['cb'],
+        'thumbnail' => 'Miniature',
+        'title' => $columns['title'],
+        'date' => $columns['date'],
+    ];
+}
+
+function montheme_bien_custom_column($column, $postId)
+{
+    // var_dump(func_get_args()); // -> permet de débeuger et voir l'ensemble des arguments de la fonction
+    // die();
+    if ($column === 'thumbnail') {
+        the_post_thumbnail('thumbnail', $postId);
+    }
+}
+
 add_action('init', 'montheme_taxonomy');
 add_action('init', 'montheme_post_type');
 add_action('after_setup_theme', 'montheme_supports'); // -> ceci est un hook qui permet d'ajouter une fonction à l'action after_setup_theme
@@ -127,6 +148,10 @@ add_filter('document_title_separator', 'montheme_title_separator');
 // add_filter('document_title_parts', 'montheme_document_title_parts'); // -> les filtres sont commes des tuyaux qui permettent d'integré une valeur, dès que vous avez une question sur comment modifier telle ou telle fonctionnalité, n'hésitez a vous rendre sur le code source de la fontion utilisée pour voir si il y a des filtres ou des ations sur lequelle je peux les passées.
 add_filter('nav_menu_css_class', 'montheme_menu_class_li');
 add_filter('nav_menu_link_attributes', 'montheme_menu_class_a');
-
 require_once('options/agence.php');
 AgenceMenuPage::register();
+add_filter('manage_bien_posts_columns', 'montheme_bien_column');
+add_filter('manage_bien_posts_custom_column', 'montheme_bien_custom_column', 10, 2);
+add_action('admin_enqueue_scripts', function () {
+    wp_enqueue_style('montheme-admin', get_template_directory_uri() . '/assets/admin.css');
+});
