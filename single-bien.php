@@ -6,6 +6,12 @@
             <img src="<?php the_post_thumbnail_url() ?>" alt="" style="width: 25%; height: auto;">
         </p>
         <?php the_content() ?>
+        <?php echo get_field('surface') ?>
+        <?php if (get_field('jardin') === true) : ?>
+            <p>
+                <strong>Jardin : </strong> <?php echo get_field('surface_jardin') ?>m²
+            </p>
+            <?php endif ?>
 <?php endwhile;
 endif; ?>
 

@@ -4,6 +4,7 @@
 function montheme_supports()
 {
     add_theme_support('title-tag');
+    add_theme_support('custom-logo');
     add_theme_support('post-thumbnails'); // permet de générer des images à la une dans le thème (dans le back-office)
     add_theme_support('menus');
     register_nav_menu('header', 'En tête du menu (header)');
@@ -94,7 +95,8 @@ function montheme_taxonomy()
     ]);
 }
 
-function montheme_post_type() {
+function montheme_post_type()
+{
     // création d'un post type
     register_post_type('bien', [
         'labels' => [
@@ -111,8 +113,8 @@ function montheme_post_type() {
             'menu_name' => 'Biens',
         ],
         'public' => true,
-        'has_archive' => true, 
-        'show_in_rest' => true,
+        'has_archive' => true,
+        'show_in_rest' => false,
         'supports' => ['title', 'editor', 'thumbnail'],
         'menu_icon' => 'dashicons-building',
         'menu_position' => 3,
@@ -140,6 +142,38 @@ function montheme_bien_custom_column($column, $postId)
     }
 }
 
+/**
+ * @param WP_Query $query 
+ */
+// Méthode get_query_var permet de récupérer une variable de la requête WP_Query
+
+/* function montheme_pre_get_posts(WP_Query $query) // -> fonction qui permet de modifier le query
+{
+    if (is_admin() || !is_home() || !$query->is_main_query()) { // -> permet de ne pas modifier la requête principale
+        return;
+    }
+    // var_dump($query); die();
+    // var_dump(get_query_var('sport')); // -> permet de voir la valeur de la variable sport renvoie une chaîne vide si la variable n'est pas définie (spoort n'est pas définie)
+    // var_dump($query->set('posts_per_page', 3)); // -> permet de modifier le nombre d'article par page
+    //var_dump($query->get('meta_query')); // -> permet de voir la valeur de la variable meta_query
+    $meta_query = $query->get('meta_query', []); // -> permet de récupérer la valeur de la variable meta_query
+    $meta_query[] = [ // -> permet d'ajouter une nouvelle valeur à la variable meta_query
+        'key' => 'prix', // -> permet de définir la clé de la variable
+        'value' => '100', // -> permet de définir la valeur de la variable
+        'compare' => '>', // -> permet de définir la comparaison de la variable
+        'type' => 'NUMERIC', // -> permet de définir le type de la variable
+    ];
+    $query->set('meta_query', $meta_query); // -> permet de définir la nouvelle valeur de la variable meta_query
+} */
+
+/* function montheme_query_vars($params) // -> fonction qui permet de modifier les paramètres de la requête
+{
+   // var_dump($params); die(); // -> permet de voir les paramètres de la requête (sport) et de les modifier pour qu'il soit différent de la requête principale
+   $params[] = 'sport'; // -> ajout de la variable sport dans les paramètres de la requête
+    return $params; // -> retourne la nouvelle valeur des paramètres
+} */
+
+
 add_action('init', 'montheme_taxonomy');
 add_action('init', 'montheme_post_type');
 add_action('after_setup_theme', 'montheme_supports'); // -> ceci est un hook qui permet d'ajouter une fonction à l'action after_setup_theme
@@ -155,3 +189,5 @@ add_filter('manage_bien_posts_custom_column', 'montheme_bien_custom_column', 10,
 add_action('admin_enqueue_scripts', function () {
     wp_enqueue_style('montheme-admin', get_template_directory_uri() . '/assets/admin.css');
 });
+/* add_action('pre_get_posts', 'montheme_pre_get_posts'); // -> c'est  un hook qui permet de voir les requêtes qui sont faites sur le site par un objet wp_query qui contient l'ensmeble des paramètres de la requête.
+add_filter('query_vars', 'montheme_query_vars'); // -> c'est un hook qui permet de voir les variables de la requête */
