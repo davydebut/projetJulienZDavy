@@ -10,6 +10,7 @@ function montheme_supports()
     register_nav_menu('header', 'En tête du menu (header)');
     register_nav_menu('footer', 'Pied de page (footer)');
     add_image_size('post-thumbnail', 350, 215, true); // permet de définir une taille d'image personnalisé à chaque envoie d'image et d'utiliser le nom de la fonction add_image_size() qui est donc card-header 
+    remove_image_size('post-thumbnail'); // permet de supprimer une taille d'image personnalisé
 }
 
 function montheme_register_assets()
@@ -45,6 +46,10 @@ function montheme_menu_class_li($classes) // -> fonction qui permet de modifier 
 function montheme_menu_class_a($attrs) // -> fonction qui permet de modifier la classe de la balise a
 {
     $attrs['class'] = 'nav-link';
+    // var_dump($attrs['aria-current']);
+    if ($attrs['aria-current'] == 'page') {
+        $attrs['class'] .= ' active';
+    }
     return $attrs;
 }
 

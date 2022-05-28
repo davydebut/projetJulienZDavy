@@ -2,39 +2,80 @@
 Theme Name: Mon Theme
 */
 
+/* Reset Css */
+
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 /* Feuille de style intégrée #11 | http://localhost:8080/sitevitrine/ */
 
 .navbar-nav {
-    margin: auto !important;
+  margin: auto !important;
 }
 
 
 /* Feuille de style intégrée #11 | http://localhost/wordpress/ */
-  
-  .navbar-brand {
-    color: black !important;
-  }
-  
-  .nav-link {
-    color: black !important;
-  }
-  
-  .btn.btn-outline-light.my-2.my-sm-0 {
-    border-color: black;
-    color: black;
-  }
-  
-  .navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-4 {
-    background-color: transparent !important;
-  }
-  
-  .form-control.mr-sm-2.me-2 {
-    border-color: black !important;
-  }
-  
-  .nav-link:hover {
-    font-weight: bold;
-    font-size: large;
-  }
-  
+
+.navbar-brand {
+  color: #2286FE !important;
+  font-weight: bolder;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+.btn.btn-outline-light.my-2.my-sm-0 {
+  border-color: black;
+  color: black;
+}
+
+.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-4 {
+  background-color: transparent !important;
+}
+
+.form-control.mr-sm-2.me-2 {
+  border-color: black !important;
+}
+
+/* Underline link hover */
+
+.nav-link:hover {
+  font-weight: bold;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
+
+.nav-link.active:after {
+  content: "";
+  display: block;
+  margin: auto;
+  background-color: #2286FE;
+  height: 3px;
+  width: 100%;
+  left: 0;
+  bottom: -10px;
+}
+
+.nav-link:after {
+  content: "";
+  display: block;
+  margin: auto;
+  background-color: #2286FE;
+  height: 3px;
+  width: 0;
+  left: 0;
+  bottom: -10px;
+}
+
+.nav-link:hover:after {
+  width: 100%;
+  transition: width 0.3s linear;
+}

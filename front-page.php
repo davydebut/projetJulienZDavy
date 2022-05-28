@@ -1,7 +1,7 @@
 <?php get_header() ?>
 
 <?php while (have_posts()) : the_post() ?>
-    <h1><?php the_title() ?></h1>
+    <h1><?php // the_title() ?></h1>
     <?php the_content() ?>
     <a href="<?= get_post_type_archive_link('post') ?>">Voir les dernières actualités</a> <!-- get_post_type_archive_link(1) 1-> permet de récupérer l'url de l'archive de l'article -->
 <?php endwhile; ?>
